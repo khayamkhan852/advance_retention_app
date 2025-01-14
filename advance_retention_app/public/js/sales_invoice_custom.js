@@ -9,7 +9,6 @@ frappe.ui.form.on("Sales Invoice", {
             frm.set_df_property('advance_invoices_section', 'hidden', 0);
         }
 
-		frm.set_value("is_cash_or_non_trade_discount", 1)
 		setAdditionalDeductionAccount(frm);
     },
     invoice_type: function (frm) {
@@ -64,11 +63,10 @@ frappe.ui.form.on("Sales Invoice", {
 		setAdditionalDeductionAccount(frm);
     },
     apply_discount_on: function(frm) {
-		frm.set_value("is_cash_or_non_trade_discount", 1)
 		setAdditionalDeductionAccount(frm);
     },
     validate: function(frm) {
-		frm.set_value("is_cash_or_non_trade_discount", 1)
+
 		setAdditionalDeductionAccount(frm);
 
 		calculating_total(frm);
@@ -211,24 +209,26 @@ function calculating_total(frm) {
 }
 
 function setAdditionalDeductionAccount(frm) {
-    frappe.call({
-        method: "frappe.client.get_list",
-        args: {
-            doctype: "Account",
-            filters: [
-                ["account_name", "like", "%Deductions And Retentions%"],
-                ["company", "=", frm.doc.company]
-            ],
-            fields: ["name", "account_name"]
-        },
-        callback: function(response) {
-            if (response.message) {
-                response.message.forEach(account => {
-                    frm.set_value("additional_discount_account", account.name)
-                });
-            } else {
-                console.log("No accounts found containing 'retention'.");
-            }
-        }
-    });
+	if (frm.doc.apply_discount_on == "Grand Total") {
+		frappe.call({
+			method: "frappe.client.get_list",
+			args: {
+				doctype: "Account",
+				filters: [
+					["account_name", "like", "%Deductions And Retentions%"],
+					["company", "=", frm.doc.company]
+				],
+				fields: ["name", "account_name"]
+			},
+			callback: function(response) {
+				if (response.message) {
+					response.message.forEach(account => {
+						frm.set_value("additional_discount_account", account.name)
+					});
+				} else {
+					console.log("No accounts found containing 'retention'.");
+				}
+			}
+		});
+	}
 }
