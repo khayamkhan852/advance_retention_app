@@ -1,0 +1,175 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-27 09:51:13.366930",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "reference_name",
+  "advance_amount",
+  "remaining_advance",
+  "vat_percentage",
+  "ref_exchange_rate",
+  "which_invoice",
+  "remaining_advace_reference",
+  "column_break_uipj",
+  "reference_row",
+  "amount_exclusive_of_vat",
+  "allocated_excluding_vat",
+  "exchange_gain_loss",
+  "vat_total",
+  "allocated_percentage",
+  "allocated",
+  "vat_on_allocated",
+  "section_break_dtio",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reference Name",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_uipj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reference_row",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Reference Row",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "advance_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Advance amount",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "vat_percentage",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Vat Percentage",
+   "precision": "2",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "amount_exclusive_of_vat",
+   "fieldtype": "Float",
+   "label": "Amount Exclusive Of Vat",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "allocated_excluding_vat",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Allocated Excluding VAT",
+   "precision": "2"
+  },
+  {
+   "columns": 1,
+   "fieldname": "allocated",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Allocated",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ref_exchange_rate",
+   "fieldtype": "Float",
+   "label": "Reference Exchange Rate",
+   "non_negative": 1,
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "vat_on_allocated",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "VAT On Allocated",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "exchange_gain_loss",
+   "fieldtype": "Float",
+   "label": "Exchange Gain/Loss",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_total",
+   "fieldtype": "Float",
+   "label": "Vat total",
+   "precision": "2"
+  },
+  {
+   "columns": 1,
+   "fieldname": "remaining_advance",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Remaining Advance",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remaining_advace_reference",
+   "fieldtype": "Float",
+   "label": "Remaining Advance Reference",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "allocated_percentage",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Allocated Percentage",
+   "precision": "2"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "which_invoice",
+   "fieldtype": "Data",
+   "label": "Invoice Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_dtio",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "remarks",
+   "fieldtype": "Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-02 15:00:30.525216",
+ "modified_by": "Administrator",
+ "module": "Advance Retention App",
+ "name": "Advance Payments",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

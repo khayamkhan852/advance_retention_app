@@ -1,0 +1,16 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Invoice Type",
+  "modified": "2025-01-06 10:45:01.455572",
+  "name": "Advance Invoice",
+  "name1": "Advance Invoice"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Invoice Type",
+  "modified": "2025-01-06 10:44:49.666319",
+  "name": "Sales Invoice",
+  "name1": "Sales Invoice"
+ }
+]
