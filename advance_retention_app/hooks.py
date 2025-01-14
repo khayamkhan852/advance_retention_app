@@ -1,7 +1,7 @@
 app_name = "advance_retention_app"
 app_title = "Advance Retention App"
 app_publisher = "khayam khan"
-app_description = "A custom Frappe Application that will introduce Advance Invoice paymenat and deduction in sales invoice"
+app_description = "A custom Frappe Application that will introduce Advance Invoice payment and deduction in sales invoice"
 app_email = "khayamkhan852@gmail.com"
 app_license = "mit"
 

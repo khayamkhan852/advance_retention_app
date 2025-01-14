@@ -1,7 +1,7 @@
 <div align="center" markdown="1">
-	<h2>BOT Subscription App</h2>
+	<h2>Advance Retention App</h2>
 	<p align="center">
-	    <p>A Small Frappe App for BOT Solutions to manage Subscriptions of Customers</p>
+	    <p></p>
 	</p>
   
 [botsolutions.tech](https://botsolutions.tech/)
@@ -17,8 +17,8 @@
 3. Open another terminal in bench directory, and run these commands
 
 	```
-	bench get-app subscription_app https://github.com/khayamkhan852/subscription_app.git
-	bench --site frappe.test install-app subscription_app
+	bench get-app advance_retention_app https://github.com/khayamkhan852/advance_retention_app.git
+	bench --site frappe.test install-app advance_retention_app
 	```
 
 
