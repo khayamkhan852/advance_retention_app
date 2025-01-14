@@ -1,9 +1,9 @@
 [project]
-name = "subscription_app"
+name = "advance_retention_app"
 authors = [
     { name = "khayam khan", email = "khayamkhan852@gmail.com"}
 ]
-description = "A Small Frappe App for BOT Solutions to manage Subscriptions of Customers"
+description = "A custom Frappe Application that will introduce Advance Invoice payment and deduction in sales invoice"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]
