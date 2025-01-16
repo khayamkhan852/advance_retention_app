@@ -1,36 +1,34 @@
 frappe.ui.form.on("Sales Invoice", {
-    refresh: function(frm) {
-        // referesh
-    },
-    onload: function(frm) {
-        if (frm.doc.invoice_type === 'Advance Invoice') {
-            frm.set_df_property('advance_invoices_section', 'hidden', 1);
-        } else {
-            frm.set_df_property('advance_invoices_section', 'hidden', 0);
-        }
-
-		setAdditionalDeductionAccount(frm);
-    },
-    invoice_type: function (frm) {
-        if (frm.doc.invoice_type === 'Advance Invoice') {
-            frm.set_df_property('advance_invoices_section', 'hidden', 1);
-        } else {
-            frm.set_df_property('advance_invoices_section', 'hidden', 0);
-        }
-    },
-    get_advance_sales_payment: function (frm) {
+	refresh: function(frm) {
+		// referesh
+	},
+	onload: function(frm) {
+		if (frm.doc.invoice_type === 'Advance Invoice') {
+			frm.set_df_property('advance_invoices_section', 'hidden', 1);
+		} else {
+			frm.set_df_property('advance_invoices_section', 'hidden', 0);
+		}
+	},
+	invoice_type: function (frm) {
+		if (frm.doc.invoice_type === 'Advance Invoice') {
+			frm.set_df_property('advance_invoices_section', 'hidden', 1);
+		} else {
+			frm.set_df_property('advance_invoices_section', 'hidden', 0);
+		}
+	},
+	get_advance_sales_payment: function (frm) {
 		frm.clear_table('payment_invoices');
-	
+
 		if (!frm.doc.invoice_type) {
 			frappe.msgprint(__('Please Select Invoice Type as Sales Invoice'));
 			return;
 		}
-	
+
 		if (!frm.doc.customer) {
 			frappe.msgprint(__('Please Select The Customer'));
 			return;
 		}
-	
+
 		if (frm.doc.invoice_type !== "Advance Invoice" && frm.doc.customer) {
 			frappe.call({
 				method: "advance_retention_app.customizations.sales_invoice.get_advance_sales_invoices",
@@ -59,13 +57,13 @@ frappe.ui.form.on("Sales Invoice", {
 			});
 		}
 	},
-    is_cash_or_non_trade_discount: function(frm) {
+	is_cash_or_non_trade_discount: function(frm) {
 		setAdditionalDeductionAccount(frm);
-    },
-    apply_discount_on: function(frm) {
+	},
+	apply_discount_on: function(frm) {
 		setAdditionalDeductionAccount(frm);
-    },
-    validate: function(frm) {
+	},
+	validate: function(frm) {
 
 		setAdditionalDeductionAccount(frm);
 
@@ -88,17 +86,17 @@ frappe.ui.form.on("Sales Invoice", {
 				}
 			});
 		}
-    },
+	},
 });
 
 frappe.ui.form.on("Sales Deduction", {
 	deduction_amount: function (frm, cdt, cdn) {
 		var doc = locals[cdt][cdn];
-		
+
 		frappe.model.set_value(cdt, cdn, "total", doc.deduction_amount);
-		
+
 		var total_amount = 0;
-		
+
 		frm.doc.deductions.forEach(function (row) {
 			total_amount += row.deduction_amount;
 			frappe.model.set_value(row.doctype, row.name, "total", total_amount);
@@ -185,16 +183,16 @@ frappe.ui.form.on("Advance Payments", {
 		frappe.model.set_value(cdt, cdn, "allocated_excluding_vat", allocated_excluding_vat);
 		frappe.model.set_value(cdt, cdn, "allocated", allocated);
 	}
-}); 
+});
 
 function calculating_total(frm) {
 	var discount_amount = frm.doc.discount_amount || 0;
 	var grand_total = frm.doc.grand_total || 0;
 	var vat_including_allocated_total = frm.doc.vat_including_allocated_total || 0;
 
-    if (frm.doc.apply_discount_on == "Net Total") {
-        discount_amount = 0;
-    }
+	if (frm.doc.apply_discount_on == "Net Total") {
+		discount_amount = 0;
+	}
 
 	grand_total = grand_total + discount_amount;
 
@@ -205,11 +203,12 @@ function calculating_total(frm) {
 	frm.set_value("amount_to_be_in_words", amount_to_be_in_words);
 
 	frm.refresh_field("net_invoice_for_the_period_total");
-    frm.refresh_field("amount_to_be_in_words");
+	frm.refresh_field("amount_to_be_in_words");
 }
 
 function setAdditionalDeductionAccount(frm) {
-	if (frm.doc.apply_discount_on == "Grand Total") {
+	if (frm.doc.apply_discount_on != "Net Total") {
+		frm.set_value('is_cash_or_non_trade_discount', 1);
 		frappe.call({
 			method: "frappe.client.get_list",
 			args: {
@@ -230,5 +229,7 @@ function setAdditionalDeductionAccount(frm) {
 				}
 			}
 		});
+	} else {
+		frm.set_value("additional_discount_account", "")
 	}
 }
