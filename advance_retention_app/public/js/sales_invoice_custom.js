@@ -8,6 +8,12 @@ frappe.ui.form.on("Sales Invoice", {
 		} else {
 			frm.set_df_property('advance_invoices_section', 'hidden', 0);
 		}
+
+		if (frm.doc.apply_discount_on === "Grand Total") {
+            frm.set_value('is_cash_or_non_trade_discount', 1);
+        } else {
+            frm.set_value('is_cash_or_non_trade_discount', 0);
+        }
 	},
 	invoice_type: function (frm) {
 		if (frm.doc.invoice_type === 'Advance Invoice') {
@@ -58,15 +64,20 @@ frappe.ui.form.on("Sales Invoice", {
 		}
 	},
 	is_cash_or_non_trade_discount: function(frm) {
-		setAdditionalDeductionAccount(frm);
+		if (frm.doc.is_cash_or_non_trade_discount) {
+            setAdditionalDeductionAccount(frm);
+        } else {
+            frm.set_value('additional_discount_account', null);
+        }
 	},
 	apply_discount_on: function(frm) {
-		setAdditionalDeductionAccount(frm);
+		if (frm.doc.apply_discount_on === "Grand Total") {
+            frm.set_value('is_cash_or_non_trade_discount', 1);
+        } else {
+            frm.set_value('is_cash_or_non_trade_discount', 0);
+        }
 	},
 	validate: function(frm) {
-
-		setAdditionalDeductionAccount(frm);
-
 		calculating_total(frm);
 
 		if (frm.doc.amount_to_be_in_words) {
@@ -208,7 +219,6 @@ function calculating_total(frm) {
 
 function setAdditionalDeductionAccount(frm) {
 	if (frm.doc.apply_discount_on != "Net Total") {
-		frm.set_value('is_cash_or_non_trade_discount', 1);
 		frappe.call({
 			method: "frappe.client.get_list",
 			args: {
@@ -229,7 +239,5 @@ function setAdditionalDeductionAccount(frm) {
 				}
 			}
 		});
-	} else {
-		frm.set_value("additional_discount_account", "")
 	}
 }
