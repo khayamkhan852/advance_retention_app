@@ -114,7 +114,16 @@ frappe.ui.form.on("Sales Deduction", {
 		});
 
 		frm.set_value("discount_amount", total_amount);
-	}
+	},
+	deductions_remove: function (frm) {
+		total_amount = 0;
+
+		frm.doc.deductions.forEach(function (row) {
+			total_amount += row.deduction_amount;
+		});
+
+		frm.set_value("discount_amount", total_amount);
+	},	
 });
 
 frappe.ui.form.on("Advance Payments", {
